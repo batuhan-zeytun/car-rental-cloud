@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
+
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Cloud rental operations</p>
-        <h1>{{ app_name }}</h1>
+      <div class="topbar-brand">
+        <div class="logo-icon">🚗</div>
+        <div>
+          <p class="eyebrow">Cloud rental operations</p>
+          <h1>{{ app_name }}</h1>
+        </div>
       </div>
       <div class="service-state" aria-live="polite">
         <span id="readyDot" class="dot muted"></span>
@@ -19,22 +23,36 @@
     </header>
 
     <main class="shell">
+
+      <!-- Stats -->
       <section class="stats" aria-label="Operational summary">
-        <article>
-          <span>Available cars</span>
-          <strong id="availableCount">0</strong>
+        <article class="stat-card">
+          <div class="stat-icon">🚙</div>
+          <div>
+            <span>Available cars</span>
+            <strong id="availableCount">—</strong>
+          </div>
         </article>
-        <article>
-          <span>Active rentals</span>
-          <strong id="activeRentalCount">0</strong>
+        <article class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div>
+            <span>Active rentals</span>
+            <strong id="activeRentalCount">—</strong>
+          </div>
         </article>
-        <article>
-          <span>Fleet revenue</span>
-          <strong id="revenueTotal">TRY 0</strong>
+        <article class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div>
+            <span>Fleet revenue</span>
+            <strong id="revenueTotal">—</strong>
+          </div>
         </article>
       </section>
 
+      <!-- Workspace -->
       <section class="workspace">
+
+        <!-- Fleet Panel -->
         <div class="panel fleet-panel">
           <div class="panel-heading">
             <div>
@@ -48,9 +66,13 @@
               <option value="maintenance">Maintenance</option>
             </select>
           </div>
+          <div class="search-bar">
+            <input type="search" id="carSearch" placeholder="🔍  Search plate, make, model, location…" autocomplete="off">
+          </div>
           <ul id="carList" class="row-list"></ul>
         </div>
 
+        <!-- New Rental -->
         <div class="panel">
           <div class="panel-heading">
             <div>
@@ -59,26 +81,23 @@
             </div>
           </div>
           <form id="rentalForm" class="form-grid">
-            <label>
-              Car
+            <label>Car
               <select id="rentalCar" name="car_id" required></select>
             </label>
-            <label>
-              Customer
+            <label>Customer
               <select id="rentalCustomer" name="customer_id" required></select>
             </label>
-            <label>
-              Start date
+            <label>Start date
               <input name="start_date" type="date" required>
             </label>
-            <label>
-              End date
+            <label>End date
               <input name="end_date" type="date" required>
             </label>
-            <button type="submit">Create rental</button>
+            <button type="submit" class="btn-full">Create rental</button>
           </form>
         </div>
 
+        <!-- Add Customer -->
         <div class="panel">
           <div class="panel-heading">
             <div>
@@ -87,22 +106,20 @@
             </div>
           </div>
           <form id="customerForm" class="form-grid">
-            <label>
-              Full name
+            <label>Full name
               <input name="full_name" placeholder="Ada Lovelace" required>
             </label>
-            <label>
-              Email
+            <label>Email
               <input name="email" type="email" placeholder="ada@example.com" required>
             </label>
-            <label>
-              Phone
+            <label>Phone
               <input name="phone" placeholder="+90 312 000 0000" required>
             </label>
-            <button type="submit">Save customer</button>
+            <button type="submit" class="btn-full">Save customer</button>
           </form>
         </div>
 
+        <!-- Add Car -->
         <div class="panel">
           <div class="panel-heading">
             <div>
@@ -111,34 +128,29 @@
             </div>
           </div>
           <form id="carForm" class="form-grid">
-            <label>
-              Plate number
+            <label>Plate number
               <input name="plate_number" placeholder="06-AYBU-02" required>
             </label>
-            <label>
-              Make
+            <label>Make
               <input name="make" placeholder="Ford" required>
             </label>
-            <label>
-              Model
+            <label>Model
               <input name="model" placeholder="Focus" required>
             </label>
-            <label>
-              Year
+            <label>Year
               <input name="year" type="number" min="2000" max="2030" value="2024" required>
             </label>
-            <label>
-              Location
+            <label>Location
               <input name="location" placeholder="Ankara Downtown" required>
             </label>
-            <label>
-              Daily rate
+            <label>Daily rate (TRY)
               <input name="daily_rate" type="number" min="1" step="0.01" value="1500" required>
             </label>
-            <button type="submit">Save car</button>
+            <button type="submit" class="btn-full">Save car</button>
           </form>
         </div>
 
+        <!-- Rentals Table -->
         <div class="panel rentals-panel">
           <div class="panel-heading">
             <div>
@@ -151,6 +163,9 @@
               <option value="completed">Completed</option>
               <option value="cancelled">Cancelled</option>
             </select>
+          </div>
+          <div class="search-bar">
+            <input type="search" id="rentalSearch" placeholder="🔍  Search customer name, email or plate…" autocomplete="off">
           </div>
           <div class="table-wrap">
             <table>
@@ -168,7 +183,25 @@
             </table>
           </div>
         </div>
+
       </section>
+
+      <!-- Metrics -->
+      <section class="metrics-section">
+        <div class="panel metrics-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Monitoring</p>
+              <h2>Live metrics</h2>
+            </div>
+            <button class="ghost" id="refreshMetrics">↻ Refresh</button>
+          </div>
+          <div class="metrics-grid" id="metricsGrid">
+            <p class="empty">Loading metrics…</p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
