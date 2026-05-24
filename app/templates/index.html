@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Cloud rental operations</p>
+        <h1>{{ app_name }}</h1>
+      </div>
+      <div class="service-state" aria-live="polite">
+        <span id="readyDot" class="dot muted"></span>
+        <span id="readyText">{{ app_env }} · v{{ version }}</span>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="stats" aria-label="Operational summary">
+        <article>
+          <span>Available cars</span>
+          <strong id="availableCount">0</strong>
+        </article>
+        <article>
+          <span>Active rentals</span>
+          <strong id="activeRentalCount">0</strong>
+        </article>
+        <article>
+          <span>Fleet revenue</span>
+          <strong id="revenueTotal">TRY 0</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <div class="panel fleet-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Inventory</p>
+              <h2>Fleet</h2>
+            </div>
+            <select id="fleetFilter" aria-label="Filter cars by status">
+              <option value="">All cars</option>
+              <option value="available">Available</option>
+              <option value="rented">Rented</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+          </div>
+          <ul id="carList" class="row-list"></ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Reservation</p>
+              <h2>New rental</h2>
+            </div>
+          </div>
+          <form id="rentalForm" class="form-grid">
+            <label>
+              Car
+              <select id="rentalCar" name="car_id" required></select>
+            </label>
+            <label>
+              Customer
+              <select id="rentalCustomer" name="customer_id" required></select>
+            </label>
+            <label>
+              Start date
+              <input name="start_date" type="date" required>
+            </label>
+            <label>
+              End date
+              <input name="end_date" type="date" required>
+            </label>
+            <button type="submit">Create rental</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Customer</p>
+              <h2>Add customer</h2>
+            </div>
+          </div>
+          <form id="customerForm" class="form-grid">
+            <label>
+              Full name
+              <input name="full_name" placeholder="Ada Lovelace" required>
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" placeholder="ada@example.com" required>
+            </label>
+            <label>
+              Phone
+              <input name="phone" placeholder="+90 312 000 0000" required>
+            </label>
+            <button type="submit">Save customer</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Vehicle</p>
+              <h2>Add car</h2>
+            </div>
+          </div>
+          <form id="carForm" class="form-grid">
+            <label>
+              Plate number
+              <input name="plate_number" placeholder="06-AYBU-02" required>
+            </label>
+            <label>
+              Make
+              <input name="make" placeholder="Ford" required>
+            </label>
+            <label>
+              Model
+              <input name="model" placeholder="Focus" required>
+            </label>
+            <label>
+              Year
+              <input name="year" type="number" min="2000" max="2030" value="2024" required>
+            </label>
+            <label>
+              Location
+              <input name="location" placeholder="Ankara Downtown" required>
+            </label>
+            <label>
+              Daily rate
+              <input name="daily_rate" type="number" min="1" step="0.01" value="1500" required>
+            </label>
+            <button type="submit">Save car</button>
+          </form>
+        </div>
+
+        <div class="panel rentals-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Contracts</p>
+              <h2>Rentals</h2>
+            </div>
+            <select id="rentalFilter" aria-label="Filter rentals by status">
+              <option value="">All rentals</option>
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Car</th>
+                  <th>Customer</th>
+                  <th>Dates</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="rentalRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

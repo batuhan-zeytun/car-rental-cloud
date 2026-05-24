@@ -1,0 +1,52 @@
+### Health
+GET http://127.0.0.1:8000/healthz
+
+### Readiness
+GET http://127.0.0.1:8000/readyz
+
+### Metrics
+GET http://127.0.0.1:8000/metrics
+
+### List cars
+GET http://127.0.0.1:8000/api/cars
+
+### Create car
+POST http://127.0.0.1:8000/api/cars
+Content-Type: application/json
+
+{
+  "plate_number": "06-AYBU-02",
+  "make": "Ford",
+  "model": "Focus",
+  "year": 2024,
+  "location": "Ankara Downtown",
+  "daily_rate": 1500
+}
+
+### List customers
+GET http://127.0.0.1:8000/api/customers
+
+### Create customer
+POST http://127.0.0.1:8000/api/customers
+Content-Type: application/json
+
+{
+  "full_name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "phone": "+90 312 000 0000"
+}
+
+### Create rental
+POST http://127.0.0.1:8000/api/rentals
+Content-Type: application/json
+
+{
+  "car_id": 1,
+  "customer_id": 1,
+  "start_date": "2026-05-20",
+  "end_date": "2026-05-22"
+}
+
+### Return rental
+POST http://127.0.0.1:8000/api/rentals/1/return
+

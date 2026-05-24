@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd '/c/Users/ADMİN/Documents/Codex/2026-05-07/imdi-cloud-computing-dersi-i-in' && find app -type f -name '*.py' | head -30)"
+    ]
+  }
+}
