@@ -1,6 +1,6 @@
 # Car Rental Cloud
 
-A 12-factor car rental management application built for a cloud computing course.
+A 12-factor cloud-native car rental management application built for a cloud computing course.
 It provides a small operations dashboard plus REST APIs for fleet inventory,
 customers, rentals, health checks, metrics, logging, Docker deployment, and CI.
 
