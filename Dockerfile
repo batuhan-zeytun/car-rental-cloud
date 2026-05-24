@@ -14,6 +14,8 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
+RUN mkdir -p /app/instance && chown -R appuser:appuser /app
+
 USER appuser
 
 EXPOSE 8000
