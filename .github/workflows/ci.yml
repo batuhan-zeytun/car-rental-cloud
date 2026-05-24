@@ -23,7 +23,7 @@ jobs:
         env:
           APP_ENV: ci
           SECRET_KEY: ci-secret
-          DATABASE_URL: sqlite:///:memory:
+          DATABASE_URL: "sqlite:///:memory:"
           AUTO_CREATE_DB: "true"
           SEED_SAMPLE_DATA: "false"
         run: pytest -q
